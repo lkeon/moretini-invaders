@@ -42,6 +42,11 @@ class Spaceship {
     return spaceships[spaceshipType] ?? spaceships.entries.first.value;
   }
 
+  // Get spaceship asset name by stripping folder names off.
+  String getAssetName() {
+    return assetPath.split('/').last;
+  }
+
   /// This map holds all the meta-data of each [SpaceshipType].
   static const Map<SpaceshipType, Spaceship> spaceships = {
     SpaceshipType.canary: Spaceship(
@@ -49,7 +54,7 @@ class Spaceship {
       cost: 0,
       speed: 250,
       spriteId: 0,
-      assetPath: 'assets/images/ship_A.png',
+      assetPath: 'assets/images/playerShip1_blue.png',
       level: 1,
     ),
     SpaceshipType.dusky: Spaceship(
@@ -57,7 +62,7 @@ class Spaceship {
       cost: 100,
       speed: 400,
       spriteId: 1,
-      assetPath: 'assets/images/ship_B.png',
+      assetPath: 'assets/images/playerShip1_green.png',
       level: 2,
     ),
     SpaceshipType.condor: Spaceship(
@@ -65,7 +70,7 @@ class Spaceship {
       cost: 200,
       speed: 300,
       spriteId: 2,
-      assetPath: 'assets/images/ship_C.png',
+      assetPath: 'assets/images/playerShip1_orange.png',
       level: 2,
     ),
     SpaceshipType.cXC: Spaceship(
@@ -73,7 +78,7 @@ class Spaceship {
       cost: 400,
       speed: 300,
       spriteId: 3,
-      assetPath: 'assets/images/ship_D.png',
+      assetPath: 'assets/images/playerShip2_blue.png',
       level: 3,
     ),
     SpaceshipType.raptor: Spaceship(
@@ -81,7 +86,7 @@ class Spaceship {
       cost: 550,
       speed: 300,
       spriteId: 4,
-      assetPath: 'assets/images/ship_E.png',
+      assetPath: 'assets/images/playerShip2_green.png',
       level: 3,
     ),
     SpaceshipType.raptorX: Spaceship(
@@ -89,7 +94,7 @@ class Spaceship {
       cost: 700,
       speed: 350,
       spriteId: 5,
-      assetPath: 'assets/images/ship_F.png',
+      assetPath: 'assets/images/playerShip2_orange.png',
       level: 3,
     ),
     SpaceshipType.albatross: Spaceship(
@@ -97,7 +102,7 @@ class Spaceship {
       cost: 850,
       speed: 400,
       spriteId: 6,
-      assetPath: 'assets/images/ship_G.png',
+      assetPath: 'assets/images/playerShip3_blue.png',
       level: 4,
     ),
     SpaceshipType.dK809: Spaceship(
@@ -105,7 +110,7 @@ class Spaceship {
       cost: 1000,
       speed: 450,
       spriteId: 7,
-      assetPath: 'assets/images/ship_H.png',
+      assetPath: 'assets/images/playerShip3_green.png',
       level: 4,
     ),
   };

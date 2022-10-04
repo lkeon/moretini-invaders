@@ -16,11 +16,15 @@ class EnemyData {
   // Points gains after destroying this enemy.
   final int killPoint;
 
+  // Image representing the enemy
+  final String image;
+
   const EnemyData({
     required this.speed,
     required this.spriteId,
     required this.level,
     required this.hMove,
     required this.killPoint,
+    required this.image,
   });
 }

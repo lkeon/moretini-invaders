@@ -37,6 +37,8 @@ class Player extends SpriteComponent
   // Type of current spaceship.
   SpaceshipType spaceshipType;
 
+  // Polygon hitbox
+
   // A reference to PlayerData so that
   // we can modify money.
   late PlayerData _playerData;
@@ -79,13 +81,25 @@ class Player extends SpriteComponent
 
     // Adding a circular hitbox with radius as 0.8 times
     // the smallest dimension of this components size.
-    final shape = CircleHitbox.relative(
-      0.8,
+
+    final defaultPaint = Paint()
+      ..color = Colors.yellowAccent
+      ..style = PaintingStyle.stroke;
+
+    final hitbox = PolygonHitbox.relative(
+      [
+        Vector2(0, 1),
+        Vector2(-1, 0.5),
+        Vector2(-1, 0),
+        Vector2(0, -1),
+        Vector2(1, 0),
+        Vector2(1, 0.5),
+      ],
       parentSize: size,
-      position: size / 2,
-      anchor: Anchor.center,
-    );
-    add(shape);
+    )
+      ..renderShape = true
+      ..paint = defaultPaint;
+    add(hitbox);
 
     _playerData = Provider.of<PlayerData>(gameRef.buildContext!, listen: false);
   }
@@ -180,7 +194,7 @@ class Player extends SpriteComponent
         generator: (i) => AcceleratedParticle(
           acceleration: getRandomVector(),
           speed: getRandomVector(),
-          position: (position.clone() + Vector2(0, size.y / 3)),
+          position: (position.clone() + Vector2(0, 0.44 * size.y)),
           child: CircleParticle(
             radius: 1,
             paint: Paint()..color = Colors.white,
@@ -193,10 +207,13 @@ class Player extends SpriteComponent
   }
 
   void joystickAction() {
+    final Vector2 bulletSize = Vector2(5, 14);
+
     Bullet bullet = Bullet(
-      sprite: gameRef.spriteSheet.getSpriteById(28),
-      size: Vector2(64, 64),
-      position: position.clone(),
+      // sprite: gameRef.spriteSheet.getSpriteById(28),
+      sprite: gameRef.bulletSprite,
+      size: bulletSize,
+      position: position.clone() - Vector2(0, size[1] / 2),
       level: _spaceship.level,
     );
 
@@ -214,9 +231,9 @@ class Player extends SpriteComponent
     if (_shootMultipleBullets) {
       for (int i = -1; i < 2; i += 2) {
         Bullet bullet = Bullet(
-          sprite: gameRef.spriteSheet.getSpriteById(28),
-          size: Vector2(64, 64),
-          position: position.clone(),
+          sprite: gameRef.bulletSprite,
+          size: bulletSize,
+          position: position.clone() - Vector2(0, size[1] / 2),
           level: _spaceship.level,
         );
 
@@ -261,7 +278,7 @@ class Player extends SpriteComponent
   void setSpaceshipType(SpaceshipType spaceshipType) {
     spaceshipType = spaceshipType;
     _spaceship = Spaceship.getSpaceshipByType(spaceshipType);
-    sprite = gameRef.spriteSheet.getSpriteById(_spaceship.spriteId);
+    sprite = Sprite(gameRef.images.fromCache(_spaceship.getAssetName()));
   }
 
   // Allows player to first multiple bullets for 4 seconds when called.

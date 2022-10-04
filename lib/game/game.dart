@@ -36,6 +36,9 @@ class SpacescapeGame extends FlameGame
   // Stores a reference to the main spritesheet.
   late SpriteSheet spriteSheet;
 
+  // Store bullet sprite
+  late Sprite bulletSprite;
+
   // Stores a reference to an enemy manager component.
   late EnemyManager _enemyManager;
 
@@ -64,27 +67,59 @@ class SpacescapeGame extends FlameGame
   @override
   Future<void> onLoad() async {
     // Makes the game use a fixed resolution irrespective of the windows size.
-    camera.viewport = FixedResolutionViewport(Vector2(540, 960));
+    camera.viewport = FixedResolutionViewport(Vector2(size.x, size.y));
 
     // Initilize the game world only one time.
     if (!_isAlreadyLoaded) {
       // Loads and caches all the images for later use.
       await images.loadAll([
-        'simpleSpace_tilesheet@2.png',
+        'playerShip1_blue.png',
+        'playerShip1_green.png',
+        'playerShip1_orange.png',
+        'playerShip2_blue.png',
+        'playerShip2_green.png',
+        'playerShip2_orange.png',
+        'playerShip3_blue.png',
+        'playerShip3_green.png',
         'freeze.png',
         'icon_plusSmall.png',
         'multi_fire.png',
         'nuke.png',
+        'simpleSpace_tilesheet@2.png',
+        'explosion3.png',
+        'laserRed16.png',
+        'enemyBlack1.png',
+        'enemyBlack2.png',
+        'enemyBlack3.png',
+        'enemyBlack4.png',
+        'enemyBlack5.png',
+        'enemyBlue1.png',
+        'enemyBlue2.png',
+        'enemyBlue3.png',
+        'enemyBlue4.png',
+        'enemyBlue5.png',
+        'enemyGreen1.png',
+        'enemyGreen2.png',
+        'enemyGreen3.png',
+        'enemyGreen4.png',
+        'enemyGreen5.png',
+        'enemyRed1.png',
       ]);
 
       _audioPlayerComponent = AudioPlayerComponent();
       add(_audioPlayerComponent);
 
       final stars = await ParallaxComponent.load(
-        [ParallaxImageData('stars1.png'), ParallaxImageData('stars2.png')],
-        repeat: ImageRepeat.repeat,
+        [
+          ParallaxImageData('T_PurpleBackground_Version2_Layer1.png'),
+          ParallaxImageData('T_PurpleBackground_Version2_Layer2.png'),
+          ParallaxImageData('T_PurpleBackground_Version2_Layer3.png'),
+          ParallaxImageData('T_PurpleBackground_Version2_Layer4.png'),
+        ],
+        repeat: ImageRepeat.repeatY,
         baseVelocity: Vector2(0, -50),
-        velocityMultiplierDelta: Vector2(0, 1.5),
+        velocityMultiplierDelta: Vector2(0, 1.3),
+        fill: LayerFill.width,
       );
       add(stars);
 
@@ -93,6 +128,9 @@ class SpacescapeGame extends FlameGame
         columns: 8,
         rows: 6,
       );
+
+      // Create sprite for bullet
+      bulletSprite = Sprite(images.fromCache('laserRed16.png'));
 
       // Create a basic joystick component on left.
       final joystick = JoystickComponent(
@@ -116,8 +154,8 @@ class SpacescapeGame extends FlameGame
       _player = Player(
         joystick: joystick,
         spaceshipType: spaceshipType,
-        sprite: spriteSheet.getSpriteById(spaceship.spriteId),
-        size: Vector2(64, 64),
+        sprite: Sprite(images.fromCache(spaceship.getAssetName())),
+        size: Vector2(50, 50),
         position: size / 2,
       );
 
@@ -151,7 +189,7 @@ class SpacescapeGame extends FlameGame
           style: const TextStyle(
             color: Colors.white,
             fontSize: 12,
-            fontFamily: 'BungeeInline',
+            fontFamily: 'Goldman',
           ),
         ),
       );
@@ -170,7 +208,7 @@ class SpacescapeGame extends FlameGame
           style: const TextStyle(
             color: Colors.white,
             fontSize: 12,
-            fontFamily: 'BungeeInline',
+            fontFamily: 'Goldman',
           ),
         ),
       );
@@ -219,33 +257,6 @@ class SpacescapeGame extends FlameGame
     _audioPlayerComponent.stopBgm();
     super.onDetach();
   }
-
-  // ===================================
-  // IMPORTANT NOTE
-  // Those overrides are obsolete since Flame v1.2.0 version
-  // This code remains as is as a reference for the YouTube tutorial.
-  // ===================================
-  // @override
-  // void prepare(Component c) {
-  //   super.prepare(c);
-
-  //   // If the component being prepared is of type KnowsGameSize,
-  //   // call onResize() on it so that it stores the current game screen size.
-  //   if (c is KnowsGameSize) {
-  //     c.onResize(size);
-  //   }
-  // }
-
-  // @override
-  // void onResize(Vector2 canvasSize) {
-  //   super.onResize(canvasSize);
-
-  //   // Loop over all the components of type KnowsGameSize and resize then as well.
-  //   children.whereType<KnowsGameSize>().forEach((component) {
-  //     component.onResize(size);
-  //   });
-  // }
-  // ===================================
 
   @override
   void update(double dt) {

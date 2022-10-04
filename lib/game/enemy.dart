@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:flame/collisions.dart';
-import 'package:flame/particles.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 
@@ -41,9 +40,9 @@ class Enemy extends SpriteComponent
     text: '10 HP',
     textRenderer: TextPaint(
       style: const TextStyle(
-        color: Colors.white,
+        color: Colors.white24,
         fontSize: 12,
-        fontFamily: 'BungeeInline',
+        fontFamily: 'Goldman',
       ),
     ),
   );
@@ -92,15 +91,20 @@ class Enemy extends SpriteComponent
   void onMount() {
     super.onMount();
 
-    // Adding a circular hitbox with radius as 0.8 times
-    // the smallest dimension of this components size.
-    final shape = CircleHitbox.relative(
-      0.8,
+    final defaultPaint = Paint()
+      ..color = Colors.yellowAccent
+      ..style = PaintingStyle.stroke;
+
+    // Adding a rectangular hitbox
+    final hitbox = RectangleHitbox.relative(
+      Vector2(0.9, 0.7),
       parentSize: size,
       position: size / 2,
       anchor: Anchor.center,
-    );
-    add(shape);
+    )
+      ..renderShape = true
+      ..paint = defaultPaint;
+    add(hitbox);
 
     // As current component is already rotated by pi radians,
     // the text component needs to be again rotated by pi radians
@@ -135,36 +139,60 @@ class Enemy extends SpriteComponent
       audioPlayer.playSfx('laser1.ogg');
     }));
 
-    removeFromParent();
-
     // Before dying, register a command to increase
     // player's score by 1.
     final command = Command<Player>(action: (player) {
       // Use the correct killPoint to increase player's score.
       player.addToScore(enemyData.killPoint);
     });
+
     gameRef.addCommand(command);
 
-    // Generate 20 white circle particles with random speed and acceleration,
-    // at current position of this enemy. Each particles lives for exactly
-    // 0.1 seconds and will get removed from the game world after that.
-    final particleComponent = ParticleSystemComponent(
-      particle: Particle.generate(
-        count: 20,
-        lifespan: 0.1,
-        generator: (i) => AcceleratedParticle(
-          acceleration: getRandomVector(),
-          speed: getRandomVector(),
-          position: position.clone(),
-          child: CircleParticle(
-            radius: 2,
-            paint: Paint()..color = Colors.white,
-          ),
-        ),
-      ),
-    );
+    // Create explosion animaiton 1
+    SpriteAnimationData explosionData = SpriteAnimationData.sequenced(
+        amount: 20, stepTime: 0.03, textureSize: Vector2(64, 64));
 
-    gameRef.add(particleComponent);
+    final explosionAnimation = SpriteAnimationComponent.fromFrameData(
+      gameRef.images.fromCache('explosion3.png'),
+      explosionData,
+      removeOnFinish: true,
+      anchor: Anchor.center,
+      position: position.clone(),
+      size: Vector2(80, 80),
+    )..animation?.loop = false;
+
+    // Create explosion animaiton 2
+    SpriteAnimationData explosionDataBig = SpriteAnimationData.sequenced(
+        amount: 20, stepTime: 0.06, textureSize: Vector2(64, 64));
+
+    final explosionAnimationBig = SpriteAnimationComponent.fromFrameData(
+      gameRef.images.fromCache('explosion3.png'),
+      explosionDataBig,
+      removeOnFinish: true,
+      anchor: Anchor.center,
+      position:
+          position.clone() + (Vector2.random(_random) - Vector2(0.5, 0.5)) * 50,
+      size: Vector2(120, 120),
+    )..animation?.loop = false;
+
+    // Create explosion animaiton 3
+    SpriteAnimationData explosionDataBigLate = SpriteAnimationData.sequenced(
+        amount: 20, stepTime: 0.08, textureSize: Vector2(64, 64));
+
+    final explosionAnimationBigLate = SpriteAnimationComponent.fromFrameData(
+      gameRef.images.fromCache('explosion3.png'),
+      explosionDataBigLate,
+      removeOnFinish: true,
+      anchor: Anchor.center,
+      position:
+          position.clone() + (Vector2.random(_random) - Vector2(0.5, 0.5)) * 60,
+      size: Vector2(120, 120),
+    )..animation?.loop = false;
+
+    gameRef.add(explosionAnimation);
+    gameRef.add(explosionAnimationBig);
+    gameRef.add(explosionAnimationBigLate);
+    removeFromParent();
   }
 
   @override
@@ -186,7 +214,7 @@ class Enemy extends SpriteComponent
     position += moveDirection * _speed * dt;
 
     // If the enemy leaves the screen, destroy it.
-    if (position.y > gameRef.size.y) {
+    if (position.y - size.y > gameRef.size.y) {
       removeFromParent();
     } else if ((position.x < size.x / 2) ||
         (position.x > (gameRef.size.x - size.x / 2))) {

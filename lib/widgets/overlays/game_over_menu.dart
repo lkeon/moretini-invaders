@@ -24,11 +24,11 @@ class GameOverMenu extends StatelessWidget {
               'Game Over',
               style: TextStyle(
                 fontSize: 50.0,
-                color: Colors.black,
+                color: Colors.white,
                 shadows: [
                   Shadow(
                     blurRadius: 20.0,
-                    color: Colors.white,
+                    color: Colors.black,
                     offset: Offset(0, 0),
                   )
                 ],

@@ -40,15 +40,17 @@ class EnemyManager extends Component
 
   // Spawns a new enemy at random position at the top of the screen.
   void _spawnEnemy() {
-    Vector2 initialSize = Vector2(64, 64);
+    Vector2 initialSize = Vector2(50, 50);
 
     // random.nextDouble() generates a random number between 0 and 1.
     // Multiplying it by gameRef.size.x makes sure that the value remains between 0 and width of screen.
-    Vector2 position = Vector2(random.nextDouble() * gameRef.size.x, 0);
+    Vector2 position =
+        Vector2(random.nextDouble() * gameRef.size.x, -initialSize[1] / 2);
 
     // Clamps the vector such that the enemy sprite remains within the screen.
+    // Start at negative position to smoothen the sprite appearance.
     position.clamp(
-      Vector2.zero() + initialSize / 2,
+      Vector2(initialSize[0] / 2, -initialSize[1] / 2),
       gameRef.size - initialSize / 2,
     );
 
@@ -65,7 +67,7 @@ class EnemyManager extends Component
       final enemyData = _enemyDataList.elementAt(random.nextInt(maxLevel * 4));
 
       Enemy enemy = Enemy(
-        sprite: spriteSheet.getSpriteById(enemyData.spriteId),
+        sprite: Sprite(gameRef.images.fromCache(enemyData.image)),
         size: initialSize,
         position: position,
         enemyData: enemyData,
@@ -142,6 +144,7 @@ class EnemyManager extends Component
       spriteId: 8,
       level: 1,
       hMove: false,
+      image: 'enemyBlack1.png',
     ),
     EnemyData(
       killPoint: 2,
@@ -149,6 +152,7 @@ class EnemyManager extends Component
       spriteId: 9,
       level: 1,
       hMove: false,
+      image: 'enemyBlack2.png',
     ),
     EnemyData(
       killPoint: 4,
@@ -156,6 +160,7 @@ class EnemyManager extends Component
       spriteId: 10,
       level: 1,
       hMove: false,
+      image: 'enemyBlack3.png',
     ),
     EnemyData(
       killPoint: 4,
@@ -163,6 +168,7 @@ class EnemyManager extends Component
       spriteId: 11,
       level: 1,
       hMove: false,
+      image: 'enemyBlack4.png',
     ),
     EnemyData(
       killPoint: 6,
@@ -170,6 +176,7 @@ class EnemyManager extends Component
       spriteId: 12,
       level: 2,
       hMove: false,
+      image: 'enemyBlack5.png',
     ),
     EnemyData(
       killPoint: 6,
@@ -177,6 +184,7 @@ class EnemyManager extends Component
       spriteId: 13,
       level: 2,
       hMove: false,
+      image: 'enemyBlue1.png',
     ),
     EnemyData(
       killPoint: 6,
@@ -184,6 +192,7 @@ class EnemyManager extends Component
       spriteId: 14,
       level: 2,
       hMove: false,
+      image: 'enemyBlue2.png',
     ),
     EnemyData(
       killPoint: 6,
@@ -191,6 +200,7 @@ class EnemyManager extends Component
       spriteId: 15,
       level: 2,
       hMove: true,
+      image: 'enemyBlue3.png',
     ),
     EnemyData(
       killPoint: 10,
@@ -198,6 +208,7 @@ class EnemyManager extends Component
       spriteId: 16,
       level: 3,
       hMove: false,
+      image: 'enemyBlue4.png',
     ),
     EnemyData(
       killPoint: 10,
@@ -205,6 +216,7 @@ class EnemyManager extends Component
       spriteId: 17,
       level: 3,
       hMove: false,
+      image: 'enemyBlue5.png',
     ),
     EnemyData(
       killPoint: 10,
@@ -212,6 +224,7 @@ class EnemyManager extends Component
       spriteId: 18,
       level: 3,
       hMove: true,
+      image: 'enemyGreen1.png',
     ),
     EnemyData(
       killPoint: 10,
@@ -219,6 +232,7 @@ class EnemyManager extends Component
       spriteId: 19,
       level: 3,
       hMove: false,
+      image: 'enemyGreen2.png',
     ),
     EnemyData(
       killPoint: 10,
@@ -226,6 +240,7 @@ class EnemyManager extends Component
       spriteId: 20,
       level: 4,
       hMove: false,
+      image: 'enemyGreen3.png',
     ),
     EnemyData(
       killPoint: 50,
@@ -233,6 +248,7 @@ class EnemyManager extends Component
       spriteId: 21,
       level: 4,
       hMove: true,
+      image: 'enemyGreen4.png',
     ),
     EnemyData(
       killPoint: 50,
@@ -240,6 +256,7 @@ class EnemyManager extends Component
       spriteId: 22,
       level: 4,
       hMove: false,
+      image: 'enemyGreen5.png',
     ),
     EnemyData(
       killPoint: 50,
@@ -247,6 +264,7 @@ class EnemyManager extends Component
       spriteId: 23,
       level: 4,
       hMove: false,
+      image: 'enemyRed1.png',
     )
   ];
 }

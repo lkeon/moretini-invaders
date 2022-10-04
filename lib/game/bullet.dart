@@ -1,6 +1,6 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-
+import 'package:flutter/material.dart';
 import 'enemy.dart';
 
 // This component represent a bullet in game world.
@@ -26,15 +26,21 @@ class Bullet extends SpriteComponent with CollisionCallbacks {
   void onMount() {
     super.onMount();
 
+    final defaultPaint = Paint()
+      ..color = Colors.yellowAccent
+      ..style = PaintingStyle.stroke;
+
     // Adding a circular hitbox with radius as 0.4 times
     //  the smallest dimension of this components size.
-    final shape = CircleHitbox.relative(
-      0.4,
+    final hitbox = RectangleHitbox.relative(
+      Vector2(1, 1),
       parentSize: size,
       position: size / 2,
       anchor: Anchor.center,
-    );
-    add(shape);
+    )
+      ..renderShape = true
+      ..paint = defaultPaint;
+    add(hitbox);
   }
 
   @override

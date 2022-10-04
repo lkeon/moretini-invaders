@@ -51,7 +51,7 @@ Future<void> main() async {
         // Use custom theme with 'BungeeInline' font.
         darkTheme: ThemeData(
           brightness: Brightness.dark,
-          fontFamily: 'BungeeInline',
+          fontFamily: 'Goldman',
           scaffoldBackgroundColor: Colors.black,
         ),
         // MainMenu will be the first screen for now.

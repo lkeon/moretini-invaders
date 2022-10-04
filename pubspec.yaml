@@ -34,4 +34,7 @@ flutter:
   fonts:
     - family: BungeeInline
       fonts:
-        - asset: assets/fonts/BungeeInline/BungeeInline-Regular.ttf
+        - asset: assets/fonts/BungeeInline-Regular.ttf
+    - family: Goldman
+      fonts:
+        - asset: assets/fonts/Goldman-Regular.ttf
