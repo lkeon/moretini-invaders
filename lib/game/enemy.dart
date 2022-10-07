@@ -112,7 +112,7 @@ class Enemy extends SpriteComponent
     _hpText.angle = pi;
 
     // To place the text just behind the enemy.
-    _hpText.position = Vector2(50, 80);
+    _hpText.position = Vector2(40, 70);
 
     // Add as child of current component.
     add(_hpText);
@@ -126,10 +126,34 @@ class Enemy extends SpriteComponent
       // If the other Collidable is a Bullet,
       // reduce health by level of bullet times 10.
       _hitPoints -= other.level * 10;
+      // Play sound and explosion video
+      if (_hitPoints <= 0) {
+        destroy();
+      } else {
+        hitNoDestroy();
+      }
     } else if (other is Player) {
       // If the other Collidable is Player, destroy.
       destroy();
     }
+  }
+
+  // This method is triggered when enemy is hit but not destroyed
+  void hitNoDestroy() {
+    // Create explosion animaiton
+    SpriteAnimationData explosionData = SpriteAnimationData.sequenced(
+        amount: 20, stepTime: 0.01, textureSize: Vector2(64, 64));
+
+    final explosionAnimationNo = SpriteAnimationComponent.fromFrameData(
+      gameRef.images.fromCache('explosion3.png'),
+      explosionData,
+      removeOnFinish: true,
+      anchor: Anchor.center,
+      position: position,
+      size: Vector2(50, 50),
+    )..animation?.loop = false;
+
+    gameRef.add(explosionAnimationNo);
   }
 
   // This method will destory this enemy.
@@ -201,12 +225,6 @@ class Enemy extends SpriteComponent
 
     // Sync-up text component and value of hitPoints.
     _hpText.text = '$_hitPoints HP';
-
-    // If hitPoints have reduced to zero,
-    // destroy this enemy.
-    if (_hitPoints <= 0) {
-      destroy();
-    }
 
     _freezeTimer.update(dt);
 

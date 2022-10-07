@@ -77,7 +77,7 @@ class PowerUpManager extends Component
     // go outside the screen.
     position.clamp(
       Vector2.zero() + initialSize / 2,
-      gameRef.size - initialSize / 2,
+      gameRef.size - initialSize / 2 - gameRef.controlHeight,
     );
 
     // Returns a random integer from 0 to (PowerUpTypes.values.length - 1).

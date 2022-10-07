@@ -4,9 +4,6 @@ class EnemyData {
   // Speed of the enemy.
   final double speed;
 
-  // Sprite ID from the main sprite sheet.
-  final int spriteId;
-
   // Level of this enemy.
   final int level;
 
@@ -21,7 +18,6 @@ class EnemyData {
 
   const EnemyData({
     required this.speed,
-    required this.spriteId,
     required this.level,
     required this.hMove,
     required this.killPoint,

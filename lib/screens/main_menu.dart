@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'dart:io';
 import 'settings_menu.dart';
 import 'select_spaceship.dart';
 
@@ -74,6 +74,15 @@ class MainMenu extends StatelessWidget {
                       );
                     },
                     child: const Text('Settings'),
+                  ),
+                ),
+
+                // Quit App button.
+                SizedBox(
+                  width: MediaQuery.of(context).size.width / 3,
+                  child: ElevatedButton(
+                    onPressed: () => exit(0),
+                    child: const Text('Quit App'),
                   ),
                 ),
               ],

@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:flame/sprite.dart';
 import 'package:flame/components.dart';
 import 'package:provider/provider.dart';
 
@@ -22,13 +21,10 @@ class EnemyManager extends Component
   // Controls for how long EnemyManager should stop spawning new enemies.
   late Timer _freezeTimer;
 
-  // A reference to spriteSheet contains enemy sprites.
-  SpriteSheet spriteSheet;
-
   // Holds an object of Random class to generate random numbers.
   Random random = Random();
 
-  EnemyManager({required this.spriteSheet}) : super() {
+  EnemyManager() : super() {
     // Sets the timer to call _spawnEnemy() after every 1 second, until timer is explicitly stops.
     _timer = Timer(1, onTick: _spawnEnemy, repeat: true);
 
@@ -141,7 +137,6 @@ class EnemyManager extends Component
     EnemyData(
       killPoint: 1,
       speed: 200,
-      spriteId: 8,
       level: 1,
       hMove: false,
       image: 'enemyBlack1.png',
@@ -149,7 +144,6 @@ class EnemyManager extends Component
     EnemyData(
       killPoint: 2,
       speed: 200,
-      spriteId: 9,
       level: 1,
       hMove: false,
       image: 'enemyBlack2.png',
@@ -157,7 +151,6 @@ class EnemyManager extends Component
     EnemyData(
       killPoint: 4,
       speed: 200,
-      spriteId: 10,
       level: 1,
       hMove: false,
       image: 'enemyBlack3.png',
@@ -165,7 +158,6 @@ class EnemyManager extends Component
     EnemyData(
       killPoint: 4,
       speed: 200,
-      spriteId: 11,
       level: 1,
       hMove: false,
       image: 'enemyBlack4.png',
@@ -173,7 +165,6 @@ class EnemyManager extends Component
     EnemyData(
       killPoint: 6,
       speed: 250,
-      spriteId: 12,
       level: 2,
       hMove: false,
       image: 'enemyBlack5.png',
@@ -181,7 +172,6 @@ class EnemyManager extends Component
     EnemyData(
       killPoint: 6,
       speed: 250,
-      spriteId: 13,
       level: 2,
       hMove: false,
       image: 'enemyBlue1.png',
@@ -189,7 +179,6 @@ class EnemyManager extends Component
     EnemyData(
       killPoint: 6,
       speed: 250,
-      spriteId: 14,
       level: 2,
       hMove: false,
       image: 'enemyBlue2.png',
@@ -197,7 +186,6 @@ class EnemyManager extends Component
     EnemyData(
       killPoint: 6,
       speed: 250,
-      spriteId: 15,
       level: 2,
       hMove: true,
       image: 'enemyBlue3.png',
@@ -205,7 +193,6 @@ class EnemyManager extends Component
     EnemyData(
       killPoint: 10,
       speed: 350,
-      spriteId: 16,
       level: 3,
       hMove: false,
       image: 'enemyBlue4.png',
@@ -213,7 +200,6 @@ class EnemyManager extends Component
     EnemyData(
       killPoint: 10,
       speed: 350,
-      spriteId: 17,
       level: 3,
       hMove: false,
       image: 'enemyBlue5.png',
@@ -221,7 +207,6 @@ class EnemyManager extends Component
     EnemyData(
       killPoint: 10,
       speed: 400,
-      spriteId: 18,
       level: 3,
       hMove: true,
       image: 'enemyGreen1.png',
@@ -229,7 +214,6 @@ class EnemyManager extends Component
     EnemyData(
       killPoint: 10,
       speed: 400,
-      spriteId: 19,
       level: 3,
       hMove: false,
       image: 'enemyGreen2.png',
@@ -237,7 +221,6 @@ class EnemyManager extends Component
     EnemyData(
       killPoint: 10,
       speed: 400,
-      spriteId: 20,
       level: 4,
       hMove: false,
       image: 'enemyGreen3.png',
@@ -245,7 +228,6 @@ class EnemyManager extends Component
     EnemyData(
       killPoint: 50,
       speed: 250,
-      spriteId: 21,
       level: 4,
       hMove: true,
       image: 'enemyGreen4.png',
@@ -253,7 +235,6 @@ class EnemyManager extends Component
     EnemyData(
       killPoint: 50,
       speed: 250,
-      spriteId: 22,
       level: 4,
       hMove: false,
       image: 'enemyGreen5.png',
@@ -261,7 +242,6 @@ class EnemyManager extends Component
     EnemyData(
       killPoint: 50,
       speed: 250,
-      spriteId: 23,
       level: 4,
       hMove: false,
       image: 'enemyRed1.png',

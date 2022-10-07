@@ -1,7 +1,6 @@
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:flame/parallax.dart';
-import 'package:flame/sprite.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -20,6 +19,7 @@ import 'bullet.dart';
 import 'command.dart';
 import 'power_ups.dart';
 import 'enemy_manager.dart';
+import 'meteor_manager.dart';
 import 'power_up_manager.dart';
 import 'audio_player_component.dart';
 
@@ -33,8 +33,8 @@ class SpacescapeGame extends FlameGame
   // Stores a reference to player component.
   late Player _player;
 
-  // Stores a reference to the main spritesheet.
-  late SpriteSheet spriteSheet;
+  // Stores a reference to the meteor spritesheet.
+  late List<Sprite> meteorSprites;
 
   // Store bullet sprite
   late Sprite bulletSprite;
@@ -42,11 +42,17 @@ class SpacescapeGame extends FlameGame
   // Stores a reference to an enemy manager component.
   late EnemyManager _enemyManager;
 
+  // Stores a reference to the meteor manager
+  late MeteorManager _meteorManager;
+
   // Stores a reference to an power-up manager component.
   late PowerUpManager _powerUpManager;
 
   // Displays player score on top left.
   late TextComponent _playerScore;
+
+  // Height of the controls at the bottom
+  final Vector2 controlHeight = Vector2(0, 150);
 
   // Displays player helth on top right.
   late TextComponent _playerHealth;
@@ -104,6 +110,10 @@ class SpacescapeGame extends FlameGame
         'enemyGreen4.png',
         'enemyGreen5.png',
         'enemyRed1.png',
+        'meteorBrown_big1.png',
+        'meteorBrown_big2.png',
+        'meteorBrown_big3.png',
+        'meteorBrown_big4.png',
       ]);
 
       _audioPlayerComponent = AudioPlayerComponent();
@@ -123,14 +133,16 @@ class SpacescapeGame extends FlameGame
       );
       add(stars);
 
-      spriteSheet = SpriteSheet.fromColumnsAndRows(
-        image: images.fromCache('simpleSpace_tilesheet@2.png'),
-        columns: 8,
-        rows: 6,
-      );
-
       // Create sprite for bullet
       bulletSprite = Sprite(images.fromCache('laserRed16.png'));
+
+      // Create list of meteor sprites
+      meteorSprites = [
+        Sprite(images.fromCache('meteorBrown_big1.png')),
+        Sprite(images.fromCache('meteorBrown_big2.png')),
+        Sprite(images.fromCache('meteorBrown_big3.png')),
+        Sprite(images.fromCache('meteorBrown_big4.png')),
+      ];
 
       // Create a basic joystick component on left.
       final joystick = JoystickComponent(
@@ -163,8 +175,11 @@ class SpacescapeGame extends FlameGame
       _player.anchor = Anchor.center;
       add(_player);
 
-      _enemyManager = EnemyManager(spriteSheet: spriteSheet);
+      _enemyManager = EnemyManager();
       add(_enemyManager);
+
+      _meteorManager = MeteorManager();
+      add(_meteorManager);
 
       _powerUpManager = PowerUpManager();
       add(_powerUpManager);
@@ -325,6 +340,7 @@ class SpacescapeGame extends FlameGame
     // First reset player, enemy manager and power-up manager .
     _player.reset();
     _enemyManager.reset();
+    _meteorManager.reset();
     _powerUpManager.reset();
 
     // Now remove all the enemies, bullets and power ups

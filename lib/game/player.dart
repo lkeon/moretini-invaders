@@ -183,7 +183,7 @@ class Player extends SpriteComponent
     // Clamp position of player such that the player sprite does not go outside the screen size.
     position.clamp(
       Vector2.zero() + size / 2,
-      gameRef.size - size / 2,
+      gameRef.size - size / 2 - gameRef.controlHeight,
     );
 
     // Adds thruster particles.
