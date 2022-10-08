@@ -24,7 +24,7 @@ import 'power_up_manager.dart';
 import 'audio_player_component.dart';
 
 // This class is responsible for initializing and running the game-loop.
-class SpacescapeGame extends FlameGame
+class MoretiniInvaders extends FlameGame
     with
         HasDraggables,
         HasTappables,
@@ -263,7 +263,7 @@ class SpacescapeGame extends FlameGame
       // Update the current spaceship type of player.
       _player.setSpaceshipType(playerData.spaceshipType);
     }
-    _audioPlayerComponent.playBgm('9. Space Invaders.wav');
+    _audioPlayerComponent.playBgm('cinematic-time-lapse-115672.mp3');
     super.onAttach();
   }
 

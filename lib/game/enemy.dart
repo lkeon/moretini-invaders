@@ -15,7 +15,7 @@ import '../models/enemy_data.dart';
 
 // This class represent an enemy component.
 class Enemy extends SpriteComponent
-    with KnowsGameSize, CollisionCallbacks, HasGameRef<SpacescapeGame> {
+    with KnowsGameSize, CollisionCallbacks, HasGameRef<MoretiniInvaders> {
   // The speed of this enemy.
   double _speed = 250;
 

@@ -6,7 +6,7 @@ import 'pause_menu.dart';
 // This class represents the pause button overlay.
 class PauseButton extends StatelessWidget {
   static const String id = 'PauseButton';
-  final SpacescapeGame gameRef;
+  final MoretiniInvaders gameRef;
 
   const PauseButton({Key? key, required this.gameRef}) : super(key: key);
 

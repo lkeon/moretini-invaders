@@ -6,7 +6,7 @@ import 'game.dart';
 
 import '../models/settings.dart';
 
-class AudioPlayerComponent extends Component with HasGameRef<SpacescapeGame> {
+class AudioPlayerComponent extends Component with HasGameRef<MoretiniInvaders> {
   @override
   Future<void>? onLoad() async {
     FlameAudio.bgm.initialize();

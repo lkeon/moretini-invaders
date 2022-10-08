@@ -8,7 +8,7 @@ import '../widgets/overlays/pause_menu.dart';
 
 // Creating this as a file private object so as to
 // avoid unwanted rebuilds of the whole game object.
-SpacescapeGame _spacescapeGame = SpacescapeGame();
+MoretiniInvaders _spacescapeGame = MoretiniInvaders();
 
 // This class represents the actual game screen
 // where all the action happens.
@@ -30,15 +30,15 @@ class GamePlay extends StatelessWidget {
           // Initially only pause button overlay will be visible.
           initialActiveOverlays: const [PauseButton.id],
           overlayBuilderMap: {
-            PauseButton.id: (BuildContext context, SpacescapeGame gameRef) =>
+            PauseButton.id: (BuildContext context, MoretiniInvaders gameRef) =>
                 PauseButton(
                   gameRef: gameRef,
                 ),
-            PauseMenu.id: (BuildContext context, SpacescapeGame gameRef) =>
+            PauseMenu.id: (BuildContext context, MoretiniInvaders gameRef) =>
                 PauseMenu(
                   gameRef: gameRef,
                 ),
-            GameOverMenu.id: (BuildContext context, SpacescapeGame gameRef) =>
+            GameOverMenu.id: (BuildContext context, MoretiniInvaders gameRef) =>
                 GameOverMenu(
                   gameRef: gameRef,
                 ),

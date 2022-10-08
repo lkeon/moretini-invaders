@@ -15,7 +15,7 @@ enum PowerUpTypes { health, freeze, nuke, multiFire }
 // This class/component is responsible for spawning random power ups
 // at random locations in the game world.
 class PowerUpManager extends Component
-    with KnowsGameSize, HasGameRef<SpacescapeGame> {
+    with KnowsGameSize, HasGameRef<MoretiniInvaders> {
   // Controls the frequency of spawning power ups.
   late Timer _spawnTimer;
 

@@ -8,7 +8,7 @@ import 'knows_game_size.dart';
 import 'meteor.dart';
 
 class MeteorManager extends Component
-    with KnowsGameSize, HasGameRef<SpacescapeGame> {
+    with KnowsGameSize, HasGameRef<MoretiniInvaders> {
   // The timer which runs the enemy spawner code at regular interval of time.
   late Timer _timer;
 

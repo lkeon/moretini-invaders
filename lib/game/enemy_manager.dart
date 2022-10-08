@@ -14,7 +14,7 @@ import '../models/player_data.dart';
 // randomly from top of the screen. It uses the HasGameRef mixin so that
 // it can add child components.
 class EnemyManager extends Component
-    with KnowsGameSize, HasGameRef<SpacescapeGame> {
+    with KnowsGameSize, HasGameRef<MoretiniInvaders> {
   // The timer which runs the enemy spawner code at regular interval of time.
   late Timer _timer;
 

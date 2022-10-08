@@ -6,6 +6,7 @@ import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:spacescape/game/meteor.dart';
 
 import '../models/player_data.dart';
 import '../models/spaceship_details.dart';
@@ -22,7 +23,7 @@ class Player extends SpriteComponent
     with
         KnowsGameSize,
         CollisionCallbacks,
-        HasGameRef<SpacescapeGame>,
+        HasGameRef<MoretiniInvaders>,
         KeyboardHandler {
   // Player joystick
   JoystickComponent joystick;
@@ -109,7 +110,7 @@ class Player extends SpriteComponent
     super.onCollision(intersectionPoints, other);
 
     // If other entity is an Enemy, reduce player's health by 10.
-    if (other is Enemy) {
+    if (other is Enemy || other is Meteor) {
       // Make the camera shake, with custom intensity.
       gameRef.camera.shake(intensity: 20);
 

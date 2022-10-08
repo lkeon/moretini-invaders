@@ -12,7 +12,7 @@ import 'audio_player_component.dart';
 // An abstract class which represents power ups in this game.
 /// See [Freeze], [Health], [MultiFire] and [Nuke] for example.
 abstract class PowerUp extends SpriteComponent
-    with HasGameRef<SpacescapeGame>, CollisionCallbacks {
+    with HasGameRef<MoretiniInvaders>, CollisionCallbacks {
   // Controls how long the power up should be visible
   // before getting destroyed if not picked.
   late Timer _timer;

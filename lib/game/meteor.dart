@@ -13,7 +13,7 @@ import 'bullet.dart';
 import 'command.dart';
 
 class Meteor extends SpriteComponent
-    with KnowsGameSize, CollisionCallbacks, HasGameRef<SpacescapeGame> {
+    with KnowsGameSize, CollisionCallbacks, HasGameRef<MoretiniInvaders> {
   // Speed of meteor
   double speed = 250;
 
