@@ -54,7 +54,7 @@ class MoretiniInvaders extends FlameGame
   // Height of the controls at the bottom
   final Vector2 controlHeight = Vector2(0, 150);
 
-  // Displays player helth on top right.
+  // Displays player health on top right.
   late TextComponent _playerHealth;
 
   late AudioPlayerComponent _audioPlayerComponent;
@@ -65,7 +65,7 @@ class MoretiniInvaders extends FlameGame
   // List of commands to be processed in next update.
   final _addLaterCommandList = List<Command>.empty(growable: true);
 
-  // Indicates wheater the game world has been already initilized.
+  // Indicates whether the game world has been already initialized.
   bool _isAlreadyLoaded = false;
 
   // This method gets called by Flame before the game-loop begins.
@@ -75,7 +75,7 @@ class MoretiniInvaders extends FlameGame
     // Makes the game use a fixed resolution irrespective of the windows size.
     camera.viewport = FixedResolutionViewport(Vector2(size.x, size.y));
 
-    // Initilize the game world only one time.
+    // Initialize the game world only one time.
     if (!_isAlreadyLoaded) {
       // Loads and caches all the images for later use.
       await images.loadAll([
@@ -158,7 +158,7 @@ class MoretiniInvaders extends FlameGame
       add(joystick);
 
       /// As build context is not valid in onLoad() method, we
-      /// cannot get current [PlayerData] here. So initilize player
+      /// cannot get current [PlayerData] here. So initialize player
       /// with the default SpaceshipType.Canary.
       const spaceshipType = SpaceshipType.canary;
       final spaceship = Spaceship.getSpaceshipByType(spaceshipType);
@@ -247,7 +247,7 @@ class MoretiniInvaders extends FlameGame
         ),
       );
 
-      // Set this to true so that we do not initilize
+      // Set this to true so that we do not initialize
       // everything again in the same session.
       _isAlreadyLoaded = true;
     }
@@ -334,7 +334,7 @@ class MoretiniInvaders extends FlameGame
     _addLaterCommandList.add(command);
   }
 
-  // Resets the game to inital state. Should be called
+  // Resets the game to initial state. Should be called
   // while restarting and exiting the game.
   void reset() {
     // First reset player, enemy manager and power-up manager .

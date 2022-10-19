@@ -1,4 +1,4 @@
-package com.example.spacescape
+package com.lkeon.moretini_invaders
 
 import io.flutter.embedding.android.FlutterActivity
 

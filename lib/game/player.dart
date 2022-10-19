@@ -6,7 +6,7 @@ import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:spacescape/game/meteor.dart';
+import 'meteor.dart';
 
 import '../models/player_data.dart';
 import '../models/spaceship_details.dart';

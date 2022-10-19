@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:spacescape/models/settings.dart';
+import '../models/settings.dart';
 
 // This class represents the settings menu.
 class SettingsMenu extends StatelessWidget {
